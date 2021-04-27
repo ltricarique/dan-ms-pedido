@@ -1,4 +1,4 @@
-package ar.edu.utn.frsf.isi.dan.pedido.controller;
+package ar.edu.utn.frsf.isi.dan.pedido.rest;
 
 /**
  * @author Leandro Heraldo Tricarique
@@ -15,4 +15,5 @@ interface Api {
 	public static String PEDIDO_GET_ID_PATH = "/{id}";
 	public static String PEDIDO_GET_DETALLE_ID_PATH = "/idPedido}/detalle/{idDetalle}";
 	public static String PEDIDO_GET_ALL_PATH = "/listar";
+	public static String PEDIDO_GET_ID_OBRA_REQUEST_PARAM = "idObra";
 }
