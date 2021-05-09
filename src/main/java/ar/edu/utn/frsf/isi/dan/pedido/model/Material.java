@@ -1,6 +1,7 @@
 package ar.edu.utn.frsf.isi.dan.pedido.model;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 /**
  * @author Leandro Heraldo Tricarique
@@ -81,13 +82,22 @@ public class Material {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof Material)
-			return ((Material) obj).getId().equals(id);
-		else
-			return false;
+	public int hashCode() {
+		return Objects.hash(id);
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Material other = (Material) obj;
+		return Objects.equals(id, other.id);
+	}
+
 	@Override
 	public String toString() {
 		return "Material [id=" + id + ", descripcion=" + descripcion + ", precioUnitario=" + precioUnitario + "]";
