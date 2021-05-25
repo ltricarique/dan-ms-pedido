@@ -3,55 +3,94 @@ package ar.edu.utn.frsf.isi.dan.pedido.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Leandro Heraldo Tricarique
  *
  */
-public class DetallePedido {
-	private Integer id;
+@Entity
+@Table(name = "DETALLE_PEDIDO", schema = "MS_PEDIDO")
+public class DetallePedido
+{
+	@Id
+	@SequenceGenerator(name = "detallePedidoGenerator", sequenceName = "SECUENCIA_DETALLE_PEDIDO", schema = "MS_PEDIDO", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detallePedidoGenerator")
+	@Column(name = "ID")
+	private Long id;
+	@ManyToOne
+	@JoinColumn(name = "ID_MATERIAL", foreignKey = @ForeignKey(name = "FK_DETALLE_PEDIDO_ID_MATERIAL_MATERIAL_ID"))
+	@JsonIgnore
 	private Material material;
-	private Integer cantidad;
+	@Column(name = "CANTIDAD")
+	private BigDecimal cantidad;
+	@Column(name = "PRECIO")
 	private BigDecimal precio;
-	
-	public Integer getId() {
+	@ManyToOne
+	@JoinColumn(name = "ID_PEDIDO", foreignKey = @ForeignKey(name = "FK_DETALLE_PEDIDO_ID_PEDIDO_TO_PEDIDO_ID"))
+	@JsonIgnore
+	private Pedido pedido;
+
+	public Long getId()
+	{
 		return id;
 	}
-	
-	public void setId(Integer id) {
+
+	public void setId(Long id)
+	{
 		this.id = id;
 	}
-	
-	public Material getMaterial() {
+
+	public Material getMaterial()
+	{
 		return material;
 	}
-	
-	public void setMaterial(Material material) {
+
+	public void setMaterial(Material material)
+	{
 		this.material = material;
 	}
-	
-	public Integer getCantidad() {
+
+	public BigDecimal getCantidad()
+	{
 		return cantidad;
 	}
-	
-	public void setCantidad(Integer cantidad) {
+
+	public void setCantidad(BigDecimal cantidad)
+	{
 		this.cantidad = cantidad;
 	}
-	
-	public BigDecimal getPrecio() {
+
+	public BigDecimal getPrecio()
+	{
 		return precio;
 	}
-	
-	public void setPrecio(BigDecimal precio) {
+
+	public void setPrecio(BigDecimal precio)
+	{
 		this.precio = precio;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return Objects.hash(id);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -63,10 +102,9 @@ public class DetallePedido {
 	}
 
 	@Override
-	public String toString() {
-		return "DetallePedido [id=" + id + ", material=" + material + ", cantidad=" + cantidad + ", precio=" + precio
-				+ "]";
+	public String toString()
+	{
+		return "DetallePedido [id=" + id + ", material=" + material + ", cantidad=" + cantidad + ", precio=" + precio + "]";
 	}
 
-	
 }

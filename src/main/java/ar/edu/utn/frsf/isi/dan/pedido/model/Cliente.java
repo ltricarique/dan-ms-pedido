@@ -2,55 +2,78 @@ package ar.edu.utn.frsf.isi.dan.pedido.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author Leandro Heraldo Tricarique
  *
  */
-public class Cliente {
-	private Integer id;
+@Entity
+@Table(name = "CLIENTE", schema = "MS_USUARIO")
+public class Cliente
+{
+	@Id
+	@Column(name = "ID")
+	private Long id;
+	@Column(name = "RAZON_SOCIAL")
 	private String razonSocial;
+	@Column(name = "CUIT")
 	private String cuit;
-	private String mail;
+	@Column(name = "EMAIL")
+	private String email;
 
-	public Integer getId() {
+	public Long getId()
+	{
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id)
+	{
 		this.id = id;
 	}
 
-	public String getRazonSocial() {
+	public String getRazonSocial()
+	{
 		return razonSocial;
 	}
 
-	public void setRazonSocial(String razonSocial) {
+	public void setRazonSocial(String razonSocial)
+	{
 		this.razonSocial = razonSocial;
 	}
 
-	public String getCuit() {
+	public String getCuit()
+	{
 		return cuit;
 	}
 
-	public void setCuit(String cuit) {
+	public void setCuit(String cuit)
+	{
 		this.cuit = cuit;
 	}
 
-	public String getMail() {
-		return mail;
+	public String getEmail()
+	{
+		return email;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email)
+	{
+		this.email = email;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		return Objects.hash(id);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -62,8 +85,9 @@ public class Cliente {
 	}
 
 	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", razonSocial=" + razonSocial + ", cuit=" + cuit + ", mail=" + mail + "]";
+	public String toString()
+	{
+		return "Cliente [id=" + id + ", razonSocial=" + razonSocial + ", cuit=" + cuit + ", email=" + email + "]";
 	}
 
 }
