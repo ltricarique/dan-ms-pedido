@@ -1,5 +1,6 @@
 package ar.edu.utn.frsf.isi.dan.pedido.model;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -23,20 +24,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PEDIDO", schema = "MS_PEDIDO")
-public class Pedido
+public class Pedido implements Serializable
 {
+	private static final long serialVersionUID = 7108750446742268667L;
+
 	@Id
 	@SequenceGenerator(name = "pedidoGenerator", sequenceName = "SECUENCIA_PEDIDO", schema = "MS_PEDIDO", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedidoGenerator")
 	@Column(name = "ID")
-	private Integer id;
+	private Long id;
 	@Column(name = "FECHA_PEDIDO")
 	private Instant fechaPedido;
 	@Column(name = "FECHA_ENVIO")
 	private Instant fechaEnvio;
 	@ManyToOne
 	@JoinColumn(name = "ID_OBRA", foreignKey = @ForeignKey(name = "FK_PEDIDO_ID_OBRA_OBRA_ID"))
-	//	@JsonIgnore
 	private Obra obra;
 	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
 	private List<DetallePedido> detalle;
@@ -44,12 +46,12 @@ public class Pedido
 	@JoinColumn(name = "ID_ESTADO", foreignKey = @ForeignKey(name = "FK_PEDIDO_ID_ESTADO_ESTADO_PEDIDO_ID"))
 	private EstadoPedido estado;
 
-	public Integer getId()
+	public Long getId()
 	{
 		return id;
 	}
 
-	public void setId(Integer id)
+	public void setId(Long id)
 	{
 		this.id = id;
 	}

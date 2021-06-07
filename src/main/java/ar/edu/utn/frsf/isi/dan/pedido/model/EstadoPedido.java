@@ -1,11 +1,13 @@
 package ar.edu.utn.frsf.isi.dan.pedido.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.data.annotation.Immutable;
 
@@ -16,13 +18,32 @@ import org.springframework.data.annotation.Immutable;
 @Entity
 @Immutable
 @Table(name = "ESTADO_PEDIDO", schema = "MS_PEDIDO")
-public class EstadoPedido
+public class EstadoPedido implements Serializable
 {
+	private static final long serialVersionUID = 3484395586745154150L;
+
 	@Id
 	@Column(name = "ID")
 	private Long id;
 	@Column(name = "ESTADO")
 	private String estado;
+
+	@Transient
+	public static final Long NUEVO = 1L;
+	@Transient
+	public static final Long CONFIRMADO = 2L;
+	@Transient
+	public static final Long PENDIENTE = 3L;
+	@Transient
+	public static final Long CANCELADO = 4L;
+	@Transient
+	public static final Long ACEPTADO = 5L;
+	@Transient
+	public static final Long RECHAZADO = 6L;
+	@Transient
+	public static final Long EN_PREPARACION = 7L;
+	@Transient
+	public static final Long ENTREGADO = 8L;
 
 	public Long getId()
 	{

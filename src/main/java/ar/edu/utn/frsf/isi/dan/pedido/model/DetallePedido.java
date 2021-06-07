@@ -1,10 +1,12 @@
 package ar.edu.utn.frsf.isi.dan.pedido.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,16 +24,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "DETALLE_PEDIDO", schema = "MS_PEDIDO")
-public class DetallePedido
+public class DetallePedido implements Serializable
 {
+	private static final long serialVersionUID = 331171547910769120L;
+
 	@Id
 	@SequenceGenerator(name = "detallePedidoGenerator", sequenceName = "SECUENCIA_DETALLE_PEDIDO", schema = "MS_PEDIDO", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "detallePedidoGenerator")
 	@Column(name = "ID")
 	private Long id;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_MATERIAL", foreignKey = @ForeignKey(name = "FK_DETALLE_PEDIDO_ID_MATERIAL_MATERIAL_ID"))
-	@JsonIgnore
 	private Material material;
 	@Column(name = "CANTIDAD")
 	private BigDecimal cantidad;
@@ -80,6 +83,16 @@ public class DetallePedido
 	public void setPrecio(BigDecimal precio)
 	{
 		this.precio = precio;
+	}
+
+	public Pedido getPedido()
+	{
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido)
+	{
+		this.pedido = pedido;
 	}
 
 	@Override

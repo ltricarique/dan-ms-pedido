@@ -1,5 +1,6 @@
 package ar.edu.utn.frsf.isi.dan.pedido.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -14,8 +15,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "MATERIAL", schema = "MS_MATERIAL")
-public class Material
+public class Material implements Serializable
 {
+	private static final long serialVersionUID = 308005249387565277L;
+
 	@Id
 	@Column(name = "ID")
 	private Long id;
@@ -29,7 +32,7 @@ public class Material
 	private BigDecimal descuentoCantidad;
 	@Column(name = "CANTIDAD_MINIMA")
 	private BigDecimal cantidadMinima;
-	@Column(name = "STOCK_MAXIMO")
+	@Column(name = "STOCK_ACTUAL")
 	private BigDecimal stockActual;
 	@Column(name = "STOCK_MINIMO")
 	private BigDecimal stockMinimo;
@@ -136,7 +139,9 @@ public class Material
 	@Override
 	public String toString()
 	{
-		return "Material [id=" + id + ", descripcion=" + descripcion + ", precioUnitario=" + precioUnitario + "]";
+		return "Material [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", precioUnitario=" + precioUnitario
+			+ ", descuentoCantidad=" + descuentoCantidad + ", cantidadMinima=" + cantidadMinima + ", stockActual=" + stockActual
+			+ ", stockMinimo=" + stockMinimo + "]";
 	}
 
 }

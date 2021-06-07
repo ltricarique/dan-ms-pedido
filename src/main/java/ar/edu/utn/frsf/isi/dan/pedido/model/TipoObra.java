@@ -1,5 +1,6 @@
 package ar.edu.utn.frsf.isi.dan.pedido.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -16,8 +17,10 @@ import org.springframework.data.annotation.Immutable;
 @Entity
 @Immutable
 @Table(name = "TIPO_OBRA", schema = "MS_USUARIO")
-public class TipoObra
+public class TipoObra implements Serializable
 {
+	private static final long serialVersionUID = -8321399297617847285L;
+
 	@Id
 	@Column(name = "ID")
 	private Long id;

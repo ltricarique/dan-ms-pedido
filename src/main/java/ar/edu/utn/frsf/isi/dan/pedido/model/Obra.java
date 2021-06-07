@@ -1,5 +1,6 @@
 package ar.edu.utn.frsf.isi.dan.pedido.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -19,11 +20,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "OBRA", schema = "MS_USUARIO")
-public class Obra
+public class Obra implements Serializable
 {
+	private static final long serialVersionUID = 8533775033022366722L;
+
 	@Id
 	@Column(name = "ID")
-	private Integer id;
+	private Long id;
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
 	@Column(name = "LATITUD")
@@ -42,12 +45,12 @@ public class Obra
 	@JsonIgnore
 	private Cliente cliente;
 
-	public Integer getId()
+	public Long getId()
 	{
 		return id;
 	}
 
-	public void setId(Integer id)
+	public void setId(Long id)
 	{
 		this.id = id;
 	}
