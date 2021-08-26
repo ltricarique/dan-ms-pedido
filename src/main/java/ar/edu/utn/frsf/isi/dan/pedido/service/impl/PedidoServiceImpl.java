@@ -22,6 +22,11 @@ import ar.edu.utn.frsf.isi.dan.pedido.repository.PedidoRepository;
 import ar.edu.utn.frsf.isi.dan.pedido.service.EstadoPedidoService;
 import ar.edu.utn.frsf.isi.dan.pedido.service.PedidoService;
 
+/**
+ * @author Leandro Heraldo Tricarique
+ * @author Francisco Tomas Gautero
+ *
+ */
 @Service
 public class PedidoServiceImpl implements PedidoService
 {

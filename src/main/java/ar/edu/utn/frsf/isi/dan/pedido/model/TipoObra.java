@@ -12,6 +12,7 @@ import org.springframework.data.annotation.Immutable;
 
 /**
  * @author Leandro Heraldo Tricarique
+ * @author Francisco Tomas Gautero
  *
  */
 @Entity

@@ -1,8 +1,11 @@
 package ar.edu.utn.frsf.isi.dan.pedido.rest;
 
+import javax.annotation.security.RolesAllowed;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.netflix.discovery.EurekaClient;
 
 import ar.edu.utn.frsf.isi.dan.pedido.exception.ArgumentoIlegalException;
 import ar.edu.utn.frsf.isi.dan.pedido.exception.RecursoNoEncontradoException;
@@ -26,10 +31,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
  * @author Leandro Heraldo Tricarique
+ * @author Francisco Tomas Gautero
  *
  */
 @RestController
 @RequestMapping(Api.PEDIDO_BASE_PATH)
+@CrossOrigin
 @Tag(name = "PedidoRest", description = "Permite gestionar los pedidos realizados por los clientes de la empresa.")
 public class PedidoRest
 {
@@ -39,6 +46,10 @@ public class PedidoRest
 	@Autowired
 	private DetallePedidoService detallePedidoService;
 
+	@Autowired
+	private EurekaClient eurekaCliente;
+
+	@RolesAllowed(Role.CLIENTE)
 	@PostMapping
 	@Operation(summary = "Registra un nuevo pedido.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedido registrado correctamente"),
@@ -65,6 +76,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.CLIENTE)
 	@PostMapping(path = Api.PEDIDO_POST_ADD_DETALLE_PATH)
 	@Operation(summary = "Agrega un detalle a un pedido.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Detalle de pedido agregado correctamente"),
@@ -92,6 +104,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.CLIENTE)
 	@PutMapping(path = Api.PEDIDO_PUT_DETALLE_ID_PATH)
 	@Operation(summary = "Actualiza un detalle de un pedido.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Detalle de pedido agregado correctamente"),
@@ -120,6 +133,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.EMPLEADO)
 	@PutMapping(path = Api.PEDIDO_PUT_ID_PATH)
 	@Operation(summary = "Actualiza un pedido.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedido actualizado"),
@@ -147,6 +161,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.CLIENTE)
 	@DeleteMapping(path = Api.PEDIDO_DELETE_DETALLE_ID_PATH)
 	@Operation(summary = "Elimina un detalle de un pedido.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Detalle eliminado"),
@@ -175,6 +190,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.EMPLEADO)
 	@GetMapping(path = Api.PEDIDO_GET_ID_PATH)
 	@Operation(summary = "Retorna un pedido por id.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedido recuperado"),
@@ -201,6 +217,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.EMPLEADO)
 	@GetMapping(path = Api.PEDIDO_GET_ID_OBRA_PATH)
 	@Operation(summary = "Retorna los pedidos de una obra por su id.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedidos recuperados"),
@@ -227,6 +244,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.EMPLEADO)
 	@GetMapping(path = Api.PEDIDO_GET_ID_ESTADO_PATH)
 	@Operation(summary = "Retorna los pedidos de una obra por su id.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedidos recuperados"),
@@ -253,6 +271,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(value = { Role.EMPLEADO, Role.CLIENTE })
 	@GetMapping(path = Api.PEDIDO_GET_ID_CLIENTE_PATH)
 	@Operation(summary = "Retorna los pedidos de un cliente por su id.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedidos recuperados"),
@@ -279,6 +298,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(value = { Role.EMPLEADO, Role.CLIENTE })
 	@GetMapping(path = Api.PEDIDO_GET_DETALLE_ID_PATH)
 	@Operation(summary = "Retorna un detalle dado de un pedido por su id.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Detalle recuperado"),
@@ -306,6 +326,7 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(Role.EMPLEADO)
 	@GetMapping(path = Api.PEDIDO_GET_ALL_PATH)
 	@Operation(summary = "Retorna todos los pedidos registrados.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedidos registrados"),
@@ -332,8 +353,9 @@ public class PedidoRest
 		}
 	}
 
+	@RolesAllowed(value = { Role.EMPLEADO, Role.CLIENTE })
 	@GetMapping(path = Api.PEDIDO_GET_DETALLE_PATH)
-	@Operation(summary = "Retorna todos los pedidos registrados.")
+	@Operation(summary = "Retorna todos los detalles de un pedido registrado.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Pedidos registrados"),
 		@ApiResponse(responseCode = "400", description = "Solicitud incorrecta"),
 		@ApiResponse(responseCode = "401", description = "No autorizado"), @ApiResponse(responseCode = "403", description = "Prohibido"),
@@ -356,6 +378,16 @@ public class PedidoRest
 		{
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
+	}
+
+	@GetMapping(path = "/instancia")
+	@Operation(summary = "Retorna información de la instancia.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Información de la instancia"),
+		@ApiResponse(responseCode = "401", description = "No autorizado"), @ApiResponse(responseCode = "403", description = "Prohibido"),
+		@ApiResponse(responseCode = "404", description = "Recurso no encontrado") })
+	public ResponseEntity<?> instancia()
+	{
+		return ResponseEntity.ok("dan-ms-pedido -> [OK]");
 	}
 
 }

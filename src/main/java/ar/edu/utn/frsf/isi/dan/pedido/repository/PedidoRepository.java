@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.utn.frsf.isi.dan.pedido.model.Pedido;
 
+/**
+ * @author Leandro Heraldo Tricarique
+ * @author Francisco Tomas Gautero
+ *
+ */
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long>
 {

@@ -8,6 +8,11 @@ import ar.edu.utn.frsf.isi.dan.pedido.model.EstadoPedido;
 import ar.edu.utn.frsf.isi.dan.pedido.repository.EstadoPedidoRepository;
 import ar.edu.utn.frsf.isi.dan.pedido.service.EstadoPedidoService;
 
+/**
+ * @author Leandro Heraldo Tricarique
+ * @author Francisco Tomas Gautero
+ *
+ */
 @Service
 public class EstadoPedidoServiceImpl implements EstadoPedidoService
 {

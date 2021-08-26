@@ -13,6 +13,7 @@ import org.springframework.data.annotation.Immutable;
 
 /**
  * @author Leandro Heraldo Tricarique
+ * @author Francisco Tomas Gautero
  *
  */
 @Entity
@@ -43,7 +44,9 @@ public class EstadoPedido implements Serializable
 	@Transient
 	public static final Long EN_PREPARACION = 7L;
 	@Transient
-	public static final Long ENTREGADO = 8L;
+	public static final Long EN_VIAJE = 8L;
+	@Transient
+	public static final Long ENTREGADO = 9L;
 
 	public Long getId()
 	{
